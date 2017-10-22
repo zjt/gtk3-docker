@@ -100,7 +100,20 @@ run_cmd2 (GtkWidget *widget,
   gint      argp;
   gint      rc = 0;
 
-   sh_cmd ("/usr/sbin", "nautilus", "--new-window");
+   sh_cmd ("/usr/local/bin", "asciio", "--new-window");
+}
+
+static void
+run_asciio (GtkWidget *widget,
+             gpointer   data)
+{
+
+  gchar     cmd_line[256];
+  gchar   **argv;
+  gint      argp;
+  gint      rc = 0;
+
+   sh_cmd ("/usr/local/bin", "asciio", "--new-window");
 }
 
 static void
@@ -132,7 +145,8 @@ activate (GtkApplication *app,
 
   button_box = gtk_button_box_new (GTK_ORIENTATION_VERTICAL);
 
-  gtk_button_box_set_layout (GTK_CONTAINER (button_box), GTK_BUTTONBOX_SPREAD);
+  //gtk_button_box_set_layout (GTK_CONTAINER (button_box), GTK_BUTTONBOX_SPREAD);
+  gtk_button_box_set_layout (GTK_BUTTON_BOX (button_box), GTK_BUTTONBOX_SPREAD);
 
   gtk_container_add (GTK_CONTAINER (window), button_box);
 
@@ -174,6 +188,11 @@ activate (GtkApplication *app,
   
   gtk_container_add (GTK_CONTAINER (button_box), button6);
 
+  GtkWidget *button7;
+  button7 = gtk_button_new_with_label ("Asciio");
+  g_signal_connect (button7, "clicked", G_CALLBACK (run_asciio), NULL);
+  
+  gtk_container_add (GTK_CONTAINER (button_box), button7);
 
   gtk_widget_show_all (window);
 }
